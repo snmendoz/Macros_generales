@@ -1,8 +1,9 @@
-function model = inferMetFormula(model,rxn, aprox)
+function [model, elements, realCoefs] = inferMetFormula(model,rxn, aprox)
 
 if nargin <3
    aprox = 0; 
 end
+realCoefs = [];
 
 mets = getMetaboliteIDsFromRxns(model, {rxn});
 mets = mets{1};
@@ -35,6 +36,7 @@ for k = 1:length(elements)
         
     end
     new_coeff = new_coeff/abs(coeff_missing_met);
+    realCoefs = [realCoefs;new_coeff];
     if aprox
         new_coeff = round(new_coeff);
     end

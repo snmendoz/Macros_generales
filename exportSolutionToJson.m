@@ -4,6 +4,8 @@ if ~endsWith(fileName, '.json')
     fileName = [fileName '.json'];
 end
 
+s = arrayfun(@(x) num2str(x), solution, 'UniformOutput', false);
+
 lstring = regexprep(strjoin(strcat('"', model.rxns, '":', arrayfun(@(x) num2str(x), solution, 'UniformOutput', false)),', '), ':',': ');
 
 string = ['{' lstring '}'];

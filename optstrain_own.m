@@ -36,7 +36,7 @@ candidates_irrev = modelInputOptStrain_irrev.rxns(candidatesToRemove_irrev_pos);
 
 n_binary = length(candidates_irrev);
 
-bilevelMILPproblem = buildMILPproblem_gapfilling({modelInputOptStrain_irrev}, candidates_irrev, {constraints}, [],{},[]);
+bilevelMILPproblem = buildMILPproblem_gapfilling_sparse({modelInputOptStrain_irrev}, candidates_irrev, {constraints}, [],{},[]);
 tic
 solution = solveCobraMILP(bilevelMILPproblem);
 runTimes = toc;
@@ -72,7 +72,7 @@ else
     while strcmp(solution.origStat,'OPTIMAL') && length(findSelectedInSolution(solution))<=lengthSolutions
         
         tic
-        bilevelMILPproblem = buildMILPproblem_gapfilling({modelInputOptStrain_irrev}, candidates_irrev, {constraints}, solutions_rxns,{},[]);
+        bilevelMILPproblem = buildMILPproblem_gapfilling_sparse({modelInputOptStrain_irrev}, candidates_irrev, {constraints}, solutions_rxns,{},[]);
         time = toc;
         runTimes = [runTimes; time];
         solution = solveCobraMILP(bilevelMILPproblem);

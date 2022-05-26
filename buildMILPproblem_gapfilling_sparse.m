@@ -36,7 +36,7 @@ vartype_bl(1:n_variables_total) = 'C';
 vartype_bl(n_rxn_total+1:n_rxn_total+n_rxns_int) = 'B';
 
 % Set bilevel objective
-c_bl = sparse(n_variables_total,1);
+c_bl = zeros(n_variables_total,1);
 c_bl(n_rxn_total+1:n_rxn_total+n_rxns_int,1) = ones(n_rxns_int,1);
 
 if ~isempty(penalizedReactions)
@@ -46,12 +46,12 @@ end
 
 
 % S*v = 0
-A_bl = models{1}.S;
+A_bl = sparse(models{1}.S);
 for i = 2:length(models)
     A_bl = [[A_bl, sparse(zeros(size(A_bl,1),size(models{i}.S,2))) ]; [sparse(zeros(size(models{i}.S,1),size(A_bl,2))) models{i}.S]];
 end
 A_bl = [A_bl zeros(size(A_bl,1),n_rxns_int)];
-b_bl = sparse(n_met_total,1);
+b_bl = zeros(n_met_total,1);
 csense_bl(1:n_met_total) = 'E';
 
 %lb
@@ -63,7 +63,7 @@ lb_bl(1:n_rxn_total) = lb;
 lb_bl(vartype_bl == 'B') = 0;
 
 %ub
-ub_bl = sparse(n_variables_total,1);
+ub_bl = zeros(n_variables_total,1);
 ub = [];
 for i = 1:length(models)
     ub = [ub;models{i}.ub];
@@ -109,7 +109,7 @@ for i = 1:n_rxns_int
     end
 end
 A_bl = [A_bl; A_int_constraints];
-b_bl = [b_bl; sparse(n_rxns_int*length(models),1)];
+b_bl = [b_bl; zeros(n_rxns_int*length(models),1)];
 csense_bl(end+1:end+n_rxns_int*length(models)) = 'L';
 
 A_int_constraints = sparse(n_rxns_int*length(models),n_variables_total);
@@ -123,7 +123,7 @@ for i = 1:n_rxns_int
     end
 end
 A_bl = [A_bl; A_int_constraints];
-b_bl = [b_bl; sparse(n_rxns_int*length(models),1)];
+b_bl = [b_bl; zeros(n_rxns_int*length(models),1)];
 csense_bl(end+1:end+n_rxns_int*length(models)) = 'L';
 
 A_int_constraints = sparse(n_rxns_int*length(models),n_variables_total);
@@ -137,7 +137,7 @@ for i = 1:n_rxns_int
     end
 end
 A_bl = [A_bl; A_int_constraints];
-b_bl = [b_bl; sparse(n_rxns_int*length(models),1)];
+b_bl = [b_bl; zeros(n_rxns_int*length(models),1)];
 csense_bl(end+1:end+n_rxns_int*length(models)) = 'L';
 
 
@@ -154,7 +154,7 @@ for i = 1:n_rxns_int
     end
 end
 A_bl = [A_bl; A_int_constraints];
-b_bl = [b_bl; sparse(n_rxns_int*length(models),1)];
+b_bl = [b_bl; zeros(n_rxns_int*length(models),1)];
 csense_bl(end+1:end+n_rxns_int*length(models)) = 'G';
 % 
 A_int_constraints = sparse(n_rxns_int*length(models),n_variables_total);
@@ -168,7 +168,7 @@ for i = 1:n_rxns_int
     end
 end
 A_bl = [A_bl; A_int_constraints];
-b_bl = [b_bl; sparse(n_rxns_int*length(models),1)];
+b_bl = [b_bl; zeros(n_rxns_int*length(models),1)];
 csense_bl(end+1:end+n_rxns_int*length(models)) = 'G';
 
 A_int_constraints = sparse(n_rxns_int*length(models),n_variables_total);
@@ -182,7 +182,7 @@ for i = 1:n_rxns_int
     end
 end
 A_bl = [A_bl; A_int_constraints];
-b_bl = [b_bl; sparse(n_rxns_int*length(models),1)];
+b_bl = [b_bl; zeros(n_rxns_int*length(models),1)];
 csense_bl(end+1:end+n_rxns_int*length(models)) = 'G';
 
 

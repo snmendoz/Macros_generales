@@ -12,6 +12,7 @@ missingFormula = find(cellfun(@isempty, (model.metFormulas(getPosOfElementsInArr
 posMissingMet = getPosOfElementsInArray(mets(missingFormula), model.mets);
 posRxn = getPosOfElementsInArray({rxn}, model.rxns);
 
+
 elements = {'C','H','O','N','P','S','Na','Mg','Cl','K','Ca','Mn','Fe','Ni','Co','Cu','Zn','As','Se','Ag','Cd','W','Hg','Mo','I','R','X'};
 numbers = zeros(size(elements));
 

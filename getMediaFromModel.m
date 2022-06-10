@@ -4,7 +4,7 @@ if useIds
     [posExcRxn, excRxns] = findExcRxnsWithIDs(model);
 else
     posExcRxn = find(findExcRxns(model));
-    excRxns = modle.rxns(posExcRxn);
+    excRxns = model.rxns(posExcRxn);
 end
 
 lb_exc = model.lb(posExcRxn);

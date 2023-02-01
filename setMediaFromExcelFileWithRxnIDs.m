@@ -8,7 +8,7 @@ for i =1:size(s,1)
 end
 mediaExchangeRxns = setdiff(mediaExchangeRxns,'');
 
-valueMediaExchangeRxns = 10*ones(size(mediaExchangeRxns));
+valueMediaExchangeRxns = -10*ones(size(mediaExchangeRxns));
 
 if isempty(find(cellfun(@isempty, regexp(model.rxns,'^EX_.*_e$'))==0))
     pos_exchange = find(findExcRxns(model));
@@ -21,6 +21,8 @@ elseif ~isempty(find(cellfun(@isempty, regexp(model.rxns,'^EX_.*_e$'))==0))
     nutrients = model.rxns(pos_exchange);
 end
 
-model = setMediaFromRxns(model,mediaExchangeRxns,valueMediaExchangeRxns,nutrients);
+% model = setMediaFromRxns(model,mediaExchangeRxns,valueMediaExchangeRxns,nutrients);
+model = setMediaFromRxns(model,strcat('EX_',mediaExchangeRxns,'_e'),valueMediaExchangeRxns,nutrients);
+
 
 end

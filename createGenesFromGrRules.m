@@ -10,7 +10,7 @@ if isfield(model, 'proteins')
     geneFields = union(geneFields, 'proteins');
 end
 
-involvedGenes = cellfun(@unique,cellfun(@splitString,regexprep(grRules,'\or|and|\(|\)',' '),'UniformOutput',0),'UniformOutput',0);
+involvedGenes = cellfun(@unique,cellfun(@splitString,regexprep(grRules,'(?<=\ )or(?=\ )|(?<=\ )and(?=\ )|\(|\)',' '),'UniformOutput',0),'UniformOutput',0);
 genes = {};
 for i=1:length(involvedGenes) 
     genes = union(genes,involvedGenes{i});

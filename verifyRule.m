@@ -1,6 +1,6 @@
 function satisfyRule = verifyRule(rule, genes)
 
-genes_Involucrados_por_Rxn=regexp(regexprep(rule,'or|and|\(|\)',' '),'\ ','split');
+genes_Involucrados_por_Rxn=regexp(regexprep(rule,'(?<=\ )or(?=\ )|(?<=\ )and(?=\ )|\(|\)',' '),'\ ','split');
 genes_Involucrados_por_Rxn = setdiff(genes_Involucrados_por_Rxn, '');
 
 boleanRule = rule;
